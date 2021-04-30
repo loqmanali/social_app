@@ -36,98 +36,100 @@ class SocialRegisterScreen extends StatelessWidget {
           final cubit = SocialRegisterCubit.get(context);
           return Scaffold(
             appBar: AppBar(),
-            body: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text('Register', style: textTheme),
-                      const SizedBox(height: 15.0),
-                      defaultFormField(
-                        controller: nameController,
-                        type: TextInputType.name,
-                        label: 'User Name',
-                        icon: Icons.person_rounded,
-                        validator: (value) {
-                          if (value.isEmpty) return 'Please enter your Name';
-                        },
-                      ),
-                      const SizedBox(height: 20.0),
-                      defaultFormField(
-                        controller: emailController,
-                        type: TextInputType.emailAddress,
-                        label: 'Email Address',
-                        icon: Icons.email_outlined,
-                        validator: (value) {
-                          if (value.isEmpty) return 'Please enter your email';
-                        },
-                      ),
-                      const SizedBox(height: 20.0),
-                      defaultFormField(
-                        controller: phoneController,
-                        type: TextInputType.phone,
-                        label: 'Phone',
-                        icon: Icons.phone,
-                        validator: (value) {
-                          if (value.isEmpty) return 'Please enter your phone';
-                        },
-                      ),
-                      const SizedBox(height: 20.0),
-                      defaultFormField(
-                        controller: passwordController,
-                        type: TextInputType.visiblePassword,
-                        label: 'Password',
-                        icon: Icons.lock_outline,
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            cubit.changePasswordVisibility();
+            body: SingleChildScrollView(
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('Register', style: textTheme),
+                        const SizedBox(height: 15.0),
+                        defaultFormField(
+                          controller: nameController,
+                          type: TextInputType.name,
+                          label: 'User Name',
+                          icon: Icons.person_rounded,
+                          validator: (value) {
+                            if (value.isEmpty) return 'Please enter your Name';
                           },
-                          icon: Icon(cubit.suffix),
                         ),
-                        obscureText: cubit.isPassword,
-                        validator: (value) {
-                          if (value.isEmpty) return 'Password is too short';
-                        },
-                      ),
-                      const SizedBox(height: 20.0),
-                      ConditionalBuilder(
-                        condition: state is! SocialRegisterLoadingState,
-                        builder: (context) => defaultButton(
-                          function: () {
-                            if (formKey.currentState.validate()) {
-                              cubit.userRegister(
-                                name: nameController.text,
-                                email: emailController.text,
-                                password: passwordController.text,
-                                phone: phoneController.text,
-                              );
-                            }
+                        const SizedBox(height: 20.0),
+                        defaultFormField(
+                          controller: emailController,
+                          type: TextInputType.emailAddress,
+                          label: 'Email Address',
+                          icon: Icons.email_outlined,
+                          validator: (value) {
+                            if (value.isEmpty) return 'Please enter your email';
                           },
-                          text: 'register',
-                          isUpperCase: true,
                         ),
-                        fallback: (context) => Center(
-                          child: CircularProgressIndicator(),
+                        const SizedBox(height: 20.0),
+                        defaultFormField(
+                          controller: phoneController,
+                          type: TextInputType.phone,
+                          label: 'Phone',
+                          icon: Icons.phone,
+                          validator: (value) {
+                            if (value.isEmpty) return 'Please enter your phone';
+                          },
                         ),
-                      ),
-                      const SizedBox(height: 25.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('You have account?'),
-                          TextButton(
+                        const SizedBox(height: 20.0),
+                        defaultFormField(
+                          controller: passwordController,
+                          type: TextInputType.visiblePassword,
+                          label: 'Password',
+                          icon: Icons.lock_outline,
+                          suffixIcon: IconButton(
                             onPressed: () {
-                              AppNavigator.navigatorTo(
-                                  context, true, SocialLoginScreen());
+                              cubit.changePasswordVisibility();
                             },
-                            child: Text('Login'),
+                            icon: Icon(cubit.suffix),
                           ),
-                        ],
-                      ),
-                    ],
+                          obscureText: cubit.isPassword,
+                          validator: (value) {
+                            if (value.isEmpty) return 'Password is too short';
+                          },
+                        ),
+                        const SizedBox(height: 20.0),
+                        ConditionalBuilder(
+                          condition: state is! SocialRegisterLoadingState,
+                          builder: (context) => defaultButton(
+                            function: () {
+                              if (formKey.currentState.validate()) {
+                                cubit.userRegister(
+                                  name: nameController.text,
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                  phone: phoneController.text,
+                                );
+                              }
+                            },
+                            text: 'register',
+                            isUpperCase: true,
+                          ),
+                          fallback: (context) => Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                        const SizedBox(height: 25.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('You have account?'),
+                            TextButton(
+                              onPressed: () {
+                                AppNavigator.navigatorTo(
+                                    context, true, SocialLoginScreen());
+                              },
+                              child: Text('Login'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
