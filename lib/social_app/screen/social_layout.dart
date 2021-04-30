@@ -31,8 +31,10 @@ class SocialLayout extends StatelessWidget {
                 onPressed: () {},
               ),
               IconButton(
-                icon: Icon(IconBroken.Logout),
-                onPressed: () {},
+                icon: Icon(Icons.brightness_4_outlined),
+                onPressed: () {
+                  SocialCubit.get(context).changeAppMode();
+                },
               ),
             ],
           ),

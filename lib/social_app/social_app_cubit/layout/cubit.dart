@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:social_app/network/local/cache_helper.dart';
 
 import '../../../components/constant.dart';
 import '../../../social_app/screen/chats/chats_screen.dart';
@@ -251,4 +252,17 @@ class SocialCubit extends Cubit<SocialStates> {
     @required String dateTime,
     @required String text,
   }) {}
+
+  bool isDark = false;
+  void changeAppMode({bool fromShared}) {
+    if (fromShared != null) {
+      isDark = fromShared;
+      emit(SocialChangeModeState());
+    } else {
+      isDark = !isDark;
+      CacheHelper.putBoolean(key: 'isDark', value: isDark).then((value) {
+        emit(SocialChangeModeState());
+      });
+    }
+  }
 }
