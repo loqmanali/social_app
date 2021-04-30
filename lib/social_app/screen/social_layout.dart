@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:social_app/components/navigate_to.dart';
-import 'package:social_app/social_app/social_app_cubit/layout/cubit.dart';
-import 'package:social_app/social_app/social_app_cubit/layout/states.dart';
-import 'package:social_app/styles/icon_broken.dart';
 
+import '../../components/navigate_to.dart';
+import '../../social_app/social_app_cubit/layout/cubit.dart';
+import '../../social_app/social_app_cubit/layout/states.dart';
+import '../../styles/icon_broken.dart';
 import 'new_post/new_post_screen.dart';
 
 class SocialLayout extends StatelessWidget {

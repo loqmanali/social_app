@@ -1,14 +1,14 @@
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:social_app/components/default_button.dart';
-import 'package:social_app/components/default_form_field.dart';
-import 'package:social_app/components/navigate_to.dart';
-import 'package:social_app/components/show_toast.dart';
-import 'package:social_app/social_app/screen/social_layout.dart';
-import 'package:social_app/social_app/social_app_cubit/register_social/register_cubit_social.dart';
-import 'package:social_app/social_app/social_app_cubit/register_social/register_states_social.dart';
 
+import '../../components/default_button.dart';
+import '../../components/default_form_field.dart';
+import '../../components/navigate_to.dart';
+import '../../components/show_toast.dart';
+import '../../social_app/screen/social_layout.dart';
+import '../../social_app/social_app_cubit/register_social/register_cubit_social.dart';
+import '../../social_app/social_app_cubit/register_social/register_states_social.dart';
 import 'social_login_screen.dart';
 
 class SocialRegisterScreen extends StatelessWidget {

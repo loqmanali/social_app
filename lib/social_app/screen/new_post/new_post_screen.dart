@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:social_app/components/default_app_bar.dart';
-import 'package:social_app/components/default_text_button.dart';
-import 'package:social_app/social_app/social_app_cubit/layout/cubit.dart';
-import 'package:social_app/social_app/social_app_cubit/layout/states.dart';
-import 'package:social_app/styles/icon_broken.dart';
-import 'package:social_app/styles/themes.dart';
+
+import '../../../components/default_app_bar.dart';
+import '../../../components/default_text_button.dart';
+import '../../../social_app/social_app_cubit/layout/cubit.dart';
+import '../../../social_app/social_app_cubit/layout/states.dart';
+import '../../../styles/icon_broken.dart';
+import '../../../styles/themes.dart';
 
 class NewPostScreen extends StatelessWidget {
   @override

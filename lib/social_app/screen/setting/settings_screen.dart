@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:social_app/components/navigate_to.dart';
-import 'package:social_app/social_app/screen/edit_profile/edit_profile_screen.dart';
-import 'package:social_app/styles/icon_broken.dart';
 
+import '../../../components/navigate_to.dart';
+import '../../../social_app/screen/edit_profile/edit_profile_screen.dart';
+import '../../../styles/icon_broken.dart';
 import '../../social_app_cubit/layout/cubit.dart';
 import '../../social_app_cubit/layout/states.dart';
 

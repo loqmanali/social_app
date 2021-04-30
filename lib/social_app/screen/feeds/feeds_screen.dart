@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:social_app/social_app/social_app_cubit/layout/cubit.dart';
-import 'package:social_app/social_app/social_app_cubit/layout/states.dart';
-import 'package:social_app/styles/icon_broken.dart';
-import 'package:social_app/styles/themes.dart';
+
+import '../../../social_app/social_app_cubit/layout/cubit.dart';
+import '../../../social_app/social_app_cubit/layout/states.dart';
+import '../../../styles/icon_broken.dart';
+import '../../../styles/themes.dart';
 
 class FeedsScreen extends StatelessWidget {
   @override

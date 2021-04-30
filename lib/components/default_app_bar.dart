@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:social_app/styles/icon_broken.dart';
+
+import '../styles/icon_broken.dart';
 
 Widget defaultAppBar({
   @required BuildContext context,

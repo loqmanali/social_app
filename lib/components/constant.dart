@@ -1,6 +1,5 @@
-import 'package:social_app/network/local/cache_helper.dart';
-import 'package:social_app/social_app/screen/social_login_screen.dart';
-
+import '../network/local/cache_helper.dart';
+import '../social_app/screen/social_login_screen.dart';
 import 'navigate_to.dart';
 import 'show_toast.dart';
 

@@ -5,12 +5,12 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:social_app/components/constant.dart';
-import 'package:social_app/social_app/screen/chats/chats_screen.dart';
-import 'package:social_app/social_app/screen/feeds/feeds_screen.dart';
-import 'package:social_app/social_app/screen/new_post/new_post_screen.dart';
-import 'package:social_app/social_app/screen/setting/settings_screen.dart';
 
+import '../../../components/constant.dart';
+import '../../../social_app/screen/chats/chats_screen.dart';
+import '../../../social_app/screen/feeds/feeds_screen.dart';
+import '../../../social_app/screen/new_post/new_post_screen.dart';
+import '../../../social_app/screen/setting/settings_screen.dart';
 import '../../../social_app/screen/users/users_screen.dart';
 import '../../social_app_cubit/layout/states.dart';
 import '../../social_model/social_user_model.dart';

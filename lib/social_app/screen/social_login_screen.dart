@@ -1,15 +1,15 @@
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:social_app/components/default_button.dart';
-import 'package:social_app/components/default_form_field.dart';
-import 'package:social_app/components/navigate_to.dart';
-import 'package:social_app/components/show_toast.dart';
-import 'package:social_app/network/local/cache_helper.dart';
-import 'package:social_app/social_app/screen/social_layout.dart';
-import 'package:social_app/social_app/social_app_cubit/login_social/login_cubit.dart';
-import 'package:social_app/social_app/social_app_cubit/login_social/login_state.dart';
 
+import '../../components/default_button.dart';
+import '../../components/default_form_field.dart';
+import '../../components/navigate_to.dart';
+import '../../components/show_toast.dart';
+import '../../network/local/cache_helper.dart';
+import '../../social_app/screen/social_layout.dart';
+import '../../social_app/social_app_cubit/login_social/login_cubit.dart';
+import '../../social_app/social_app_cubit/login_social/login_state.dart';
 import 'social_register_screen.dart';
 
 class SocialLoginScreen extends StatelessWidget {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:social_app/styles/themes.dart';
+
+import '../styles/themes.dart';
 
 Widget buildListProduct(
   model,

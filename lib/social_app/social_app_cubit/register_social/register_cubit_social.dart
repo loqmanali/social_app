@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:social_app/social_app/social_model/social_user_model.dart';
 
+import '../../../social_app/social_model/social_user_model.dart';
 import 'register_states_social.dart';
 
 class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
