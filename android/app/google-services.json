@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "900628830238",
+    "project_id": "social-99397",
+    "storage_bucket": "social-99397.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900628830238:android:986675cfeef2fb1c43360f",
+        "android_client_info": {
+          "package_name": "com.loqman.social_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900628830238-la22itclvpgbqpoc6eqeoe14g7vtdth5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.loqman.social_app",
+            "certificate_hash": "27b9a5e8fdb1d645f408b387bf81c4c0509e832f"
+          }
+        },
+        {
+          "client_id": "900628830238-7tl1v4tancbb6tt7upbe4ub4pduq0hga.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQ7hgeLJ-eVjRpJvCwYj3w5GN7usMWucs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900628830238-7tl1v4tancbb6tt7upbe4ub4pduq0hga.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
