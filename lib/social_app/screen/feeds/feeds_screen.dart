@@ -16,7 +16,7 @@ class FeedsScreen extends StatelessWidget {
       builder: (context, state) {
         final cubit = SocialCubit.get(context);
         return ConditionalBuilder(
-          condition: cubit.posts.length > 0,
+          condition: cubit.posts.length > 0 && cubit.userModel != null,
           builder: (context) => SingleChildScrollView(
             child: Column(
               children: [
@@ -48,7 +48,7 @@ class FeedsScreen extends StatelessWidget {
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return buildPostItem(context, cubit.posts[index]);
+                    return buildPostItem(context, cubit.posts[index], index);
                   },
                   separatorBuilder: (context, index) =>
                       const SizedBox(height: 15.0),
@@ -63,7 +63,8 @@ class FeedsScreen extends StatelessWidget {
     );
   }
 
-  Widget buildPostItem(BuildContext context, PostModel model) {
+  Widget buildPostItem(BuildContext context, PostModel model, index) {
+    final cubit = SocialCubit.get(context);
     return Card(
       clipBehavior: Clip.antiAliasWithSaveLayer,
       elevation: 5.0,
@@ -197,7 +198,7 @@ class FeedsScreen extends StatelessWidget {
                             ),
                             const SizedBox(width: 5.0),
                             Text(
-                              '0',
+                              '${cubit.likes[index]}',
                               style: Theme.of(context).textTheme.caption,
                             ),
                           ],
@@ -263,11 +264,11 @@ class FeedsScreen extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    cubit.likePost(cubit.postsId[index]);
+                  },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 12.0,
-                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 12.0),
                     child: Row(
                       children: [
                         Icon(
