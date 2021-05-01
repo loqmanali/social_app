@@ -1,5 +1,7 @@
+import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/social_app/social_model/post_model.dart';
 
 import '../../../social_app/social_app_cubit/layout/cubit.dart';
 import '../../../social_app/social_app_cubit/layout/states.dart';
@@ -13,51 +15,55 @@ class FeedsScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         final cubit = SocialCubit.get(context);
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              Card(
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                elevation: 5.0,
-                margin: EdgeInsets.symmetric(horizontal: 8.0),
-                child: Stack(
-                  alignment: AlignmentDirectional.bottomEnd,
-                  children: [
-                    Image.network(
-                      'https://image.freepik.com/free-vector/eid-mubarak-3d-realistic-symbols-arab-islamic-holidays_87521-3019.jpg',
-                      fit: BoxFit.cover,
-                      height: 200.0,
-                      width: double.infinity,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Communicate With Friends',
-                        style: Theme.of(context).textTheme.subtitle1,
+        return ConditionalBuilder(
+          condition: cubit.posts.length > 0,
+          builder: (context) => SingleChildScrollView(
+            child: Column(
+              children: [
+                Card(
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  elevation: 5.0,
+                  margin: EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Stack(
+                    alignment: AlignmentDirectional.bottomEnd,
+                    children: [
+                      Image.network(
+                        'https://image.freepik.com/free-vector/eid-mubarak-3d-realistic-symbols-arab-islamic-holidays_87521-3019.jpg',
+                        fit: BoxFit.cover,
+                        height: 200.0,
+                        width: double.infinity,
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Communicate With Friends',
+                          style: Theme.of(context).textTheme.subtitle1,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 15.0),
-              ListView.separated(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return buildPostItem(context);
-                },
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 15.0),
-                itemCount: 10,
-              ),
-            ],
+                const SizedBox(height: 15.0),
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return buildPostItem(context, cubit.posts[index]);
+                  },
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 15.0),
+                  itemCount: cubit.posts.length,
+                ),
+              ],
+            ),
           ),
+          fallback: (context) => Center(child: CircularProgressIndicator()),
         );
       },
     );
   }
 
-  Widget buildPostItem(BuildContext context) {
+  Widget buildPostItem(BuildContext context, PostModel model) {
     return Card(
       clipBehavior: Clip.antiAliasWithSaveLayer,
       elevation: 5.0,
@@ -65,13 +71,14 @@ class FeedsScreen extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
                 CircleAvatar(
                   radius: 25.0,
                   backgroundImage: Image.network(
-                    'https://image.freepik.com/free-vector/man-shows-gesture-great-idea_10045-637.jpg',
+                    '${model.image}',
                     fit: BoxFit.cover,
                     height: 200.0,
                     width: double.infinity,
@@ -84,7 +91,7 @@ class FeedsScreen extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Text('Loqman Ali'),
+                          Text('${model.name}'),
                           const SizedBox(width: 5.0),
                           Icon(
                             Icons.check_circle,
@@ -94,7 +101,7 @@ class FeedsScreen extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        'April 25, 2021 at 12:00 AM',
+                        '${model.dateTime}',
                         style: Theme.of(context).textTheme.caption,
                       ),
                     ],
@@ -118,7 +125,7 @@ class FeedsScreen extends StatelessWidget {
               ),
             ),
             Text(
-              'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
+              '${model.text}',
               style: Theme.of(context).textTheme.subtitle1.copyWith(
                     height: 1.6,
                   ),
@@ -150,27 +157,26 @@ class FeedsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsetsDirectional.only(top: 0.0),
-              child: Container(
-                height: 140.0,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    4.0,
-                  ),
-                  image: DecorationImage(
-                    image: Image.network(
-                      'https://image.freepik.com/free-vector/eid-mubarak-3d-realistic-symbols-arab-islamic-holidays_87521-3019.jpg',
+            if (model.postImage != '')
+              Padding(
+                padding: const EdgeInsetsDirectional.only(top: 20.0),
+                child: Container(
+                  height: 140.0,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4.0),
+                    image: DecorationImage(
+                      image: Image.network(
+                        '${model.postImage}',
+                        fit: BoxFit.cover,
+                        height: 200.0,
+                        width: double.infinity,
+                      ).image,
                       fit: BoxFit.cover,
-                      height: 200.0,
-                      width: double.infinity,
-                    ).image,
-                    fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
-            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 5.0),
               child: Row(
@@ -191,7 +197,7 @@ class FeedsScreen extends StatelessWidget {
                             ),
                             const SizedBox(width: 5.0),
                             Text(
-                              '150',
+                              '0',
                               style: Theme.of(context).textTheme.caption,
                             ),
                           ],
@@ -214,7 +220,7 @@ class FeedsScreen extends StatelessWidget {
                             ),
                             const SizedBox(width: 5.0),
                             Text(
-                              '150 Comment',
+                              '0 Comment',
                               style: Theme.of(context).textTheme.caption,
                             ),
                           ],
@@ -243,7 +249,7 @@ class FeedsScreen extends StatelessWidget {
                         CircleAvatar(
                           radius: 15.0,
                           backgroundImage: Image.network(
-                            'https://image.freepik.com/free-vector/man-shows-gesture-great-idea_10045-637.jpg',
+                            '${model.image}',
                             fit: BoxFit.cover,
                           ).image,
                         ),
