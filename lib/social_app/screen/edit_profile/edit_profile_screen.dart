@@ -71,9 +71,9 @@ class EditProfileScreen extends StatelessWidget {
                                     topRight: Radius.circular(4.0),
                                   ),
                                   image: DecorationImage(
-                                    image: NetworkImage(
-                                      '${coverImage == null ? NetworkImage('${userModel.cover}') : FileImage(coverImage)}',
-                                    ),
+                                    image: coverImage == null
+                                        ? NetworkImage('${userModel.cover}')
+                                        : FileImage(coverImage),
                                     fit: BoxFit.cover,
                                   ),
                                 ),

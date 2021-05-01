@@ -44,6 +44,7 @@ void main() async {
 
   runApp(MyApp(
     // onBoarding: onBoarding,
+    isDark: isDark,
     startWidget: widget,
   ));
 }

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:social_app/network/local/cache_helper.dart';
+import 'package:social_app/social_app/social_model/post_model.dart';
 
 import '../../../components/constant.dart';
 import '../../../social_app/screen/chats/chats_screen.dart';
@@ -155,7 +156,6 @@ class SocialCubit extends Cubit<SocialStates> {
       emit(SocialUploadProfileImageErrorState());
     });
   }
-
   // String coverImageUrl = '';
 
   void uploadCoverImage({
@@ -245,13 +245,60 @@ class SocialCubit extends Cubit<SocialStates> {
     }
   }
 
-  void createNewPost({
-    @required String name,
-    @required String uId,
-    @required String image,
+  void removePostImage() {
+    postImage = null;
+    emit(SocialRemovePostImageState());
+  }
+
+  void uploadPostImage({
     @required String dateTime,
     @required String text,
-  }) {}
+  }) {
+    emit(SocialCreatePostLoadingState());
+    firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('posts/${Uri.file(postImage.path).pathSegments.last}')
+        .putFile(postImage)
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        print(value);
+        createPost(
+          dateTime: dateTime,
+          text: text,
+          postImage: value,
+        );
+      }).catchError((error) {
+        emit(SocialCreatePostErrorState());
+      });
+    }).catchError((error) {
+      emit(SocialCreatePostErrorState());
+    });
+  }
+
+  void createPost({
+    @required String dateTime,
+    @required String text,
+    String postImage,
+  }) {
+    emit(SocialCreatePostLoadingState());
+    PostModel model = PostModel(
+      name: userModel.name,
+      image: userModel.image,
+      uId: userModel.uId,
+      dateTime: dateTime,
+      text: text,
+      postImage: postImage ?? '',
+    );
+
+    FirebaseFirestore.instance
+        .collection('posts')
+        .add(model.toMap())
+        .then((value) {
+      emit(SocialCreatePostSuccessState());
+    }).catchError((error) {
+      emit(SocialCreatePostErrorState());
+    });
+  }
 
   bool isDark = false;
   void changeAppMode({bool fromShared}) {

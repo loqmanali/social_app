@@ -9,18 +9,33 @@ import '../../../styles/icon_broken.dart';
 import '../../../styles/themes.dart';
 
 class NewPostScreen extends StatelessWidget {
+  final textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        final cubit = SocialCubit.get(context);
         return Scaffold(
           appBar: defaultAppBar(
             context: context,
             title: 'Create Post',
             actions: [
               defaultTextButton(
-                function: () {},
+                function: () {
+                  final now = DateTime.now();
+                  if (cubit.postImage == null) {
+                    cubit.createPost(
+                      dateTime: now.toString(),
+                      text: textController.text,
+                    );
+                  } else {
+                    cubit.uploadPostImage(
+                      dateTime: now.toString(),
+                      text: textController.text,
+                    );
+                  }
+                },
                 text: 'Post',
               ),
             ],
@@ -29,6 +44,10 @@ class NewPostScreen extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
+                if (state is SocialCreatePostLoadingState)
+                  LinearProgressIndicator(),
+                if (state is SocialCreatePostLoadingState)
+                  const SizedBox(height: 10.0),
                 Row(
                   children: [
                     CircleAvatar(
@@ -58,15 +77,45 @@ class NewPostScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: TextFormField(
+                    controller: textController,
                     decoration:
                         InputDecoration(hintText: 'What is on your mind ...'),
                   ),
                 ),
+                if (cubit.postImage != null)
+                  Stack(
+                    alignment: AlignmentDirectional.topEnd,
+                    children: [
+                      Container(
+                        height: 200.0,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          image: DecorationImage(
+                            image: FileImage(cubit.postImage),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      CircleAvatar(
+                        radius: 20.0,
+                        child: IconButton(
+                          icon: Icon(Icons.close),
+                          onPressed: () {
+                            cubit.removePostImage();
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                const SizedBox(height: 25.0),
                 Row(
                   children: [
                     Expanded(
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          cubit.getPostImage();
+                        },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
